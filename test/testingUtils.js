@@ -19,12 +19,15 @@ var utils = module.exports = {
     });
   },
   createEnvironment : function(callback) {
-    var num = process.pid + Math.random();
-    var dir = path.join(utils.tempDir, ('app-' + num));
+    // kill existing processes on port 3000 if we can
+    exec('lsof -nP -iTCP -sTCP:LISTEN | grep 3000 | awk \'{ print $2 }\' | xargs kill',function(){
+      var num = process.pid + Math.random();
+      var dir = path.join(utils.tempDir, ('app-' + num));
 
-    mkdirp(dir, function ondir(err) {
-      if (err) return callback(err);
-      callback(null, dir);
+      mkdirp(dir, function ondir(err) {
+        if (err) return callback(err);
+        callback(null, dir);
+      });
     });
   },
   npmInstall : function(dir, callback) {
@@ -58,6 +61,25 @@ var utils = module.exports = {
     }
 
     return files;
+  },
+  shell : function(dir, cmd, args, stdout, stderr, callback){
+    if(typeof args == 'function'){
+      callback = stderr;
+      stderr = stdout;
+      stdout = args;
+      args = [];
+    }
+    var child = spawn(cmd, args, {
+      cwd: dir
+    });
+
+    child.stdout.on('data', stdout);
+    child.stderr.on('data', stderr);
+
+    child.on('error', callback);
+    child.on('exit', callback);
+
+    return child;
   },
   run : function(dir, args, callback) {
     var argv = [utils.binPath].concat(args);

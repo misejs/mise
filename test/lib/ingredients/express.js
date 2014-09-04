@@ -2,6 +2,7 @@ var assert = require('assert');
 var path = require('path');
 var utils = require('../../testingUtils');
 var request = require('supertest');
+var fs = require('fs');
 
 var binPath = utils.binPath;
 var tempDir = utils.tempDir;
@@ -35,7 +36,7 @@ describe('express',function(){
       run(dir, ['express'], function (err, stdout) {
         if (err) return done(err);
         files = parseCreatedFiles(stdout, dir);
-        assert.equal(files.length, 17);
+        assert.equal(files.length, 20);
         done();
       });
     });
@@ -95,7 +96,7 @@ describe('express',function(){
       run(dir, ['express','--hbs'], function (err, stdout) {
         if (err) return done(err);
         files = parseCreatedFiles(stdout, dir);
-        assert.equal(files.length, 17);
+        assert.equal(files.length, 20);
         done();
       });
     });

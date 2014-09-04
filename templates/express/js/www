@@ -4,6 +4,12 @@ var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-});
+var startServer = module.exports = function(){
+  var server = app.listen(app.get('port'), function() {
+    debug('{name} server listening on port ' + server.address().port);
+  });
+}
+
+if(require.main === module){
+  startServer();
+}
