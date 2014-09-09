@@ -33,12 +33,12 @@ module.exports = {
   // package metadata version so caching package metadata will interfere with it.
 
   // Recommended setting: 0
-  cacheAge: 30000,
+  cacheAge: 0,
 
   // Request config
 
   // max milliseconds to wait for each HTTP response
-  httpTimeout: 10000,
+  httpTimeout: 2000,
   // maximum number of retries per HTTP resource to get
   maxRetries: 5,
   // whether or not HTTPS requests are checked against Node's list of CAs

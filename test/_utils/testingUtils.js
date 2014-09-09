@@ -9,10 +9,8 @@ var homePath = path.normalize(process.env[(process.platform == 'win32') ? 'USERP
 var log = require('npmlog');
 var async = require('async');
 
-var clearPort = function(port,callback){
-  exec('lsof -nP -iTCP -sTCP:LISTEN | grep '+port+' | awk \'{ print $2 }\' | xargs kill',function(){
-    callback();
-  });
+if(process.argv.join(' ').match(/\s-?-v(erbose)?/) && log.level != 'verbose'){
+  log.level = 'verbose';
 }
 
 var utils = module.exports = {
@@ -29,26 +27,19 @@ var utils = module.exports = {
     });
   },
   createEnvironment : function(callback) {
-    // kill existing processes on port 3000 if we can
-    clearPort(3000,function(){
-      var num = process.pid + Math.random();
-      var dir = path.join(utils.tempDir, ('app-' + num));
+    var num = process.pid + Math.random();
+    var dir = path.join(utils.tempDir, ('app-' + num));
 
-      mkdirp(dir, function ondir(err) {
-        if (err) return callback(err);
-        callback(null, dir);
-      });
+    mkdirp(dir, function ondir(err) {
+      if (err) return callback(err);
+      callback(null, dir);
     });
   },
   npmInstall : function(dir, callback) {
-    clearPort(5656,function(){
-      fork('./node_modules/npm_lazy/bin/npm_lazy',['--config',path.join(__dirname,'npm_lazy_config.js')],function(){
-        console.log('done');
-      });
-      async.series([
-        exec.bind(null,'npm install --registry http://localhost:5656', {cwd: dir}),
-        clearPort.bind(null,5656)
-      ],callback)
+    var npm_lazy = fork('./node_modules/npm_lazy/bin/npm_lazy',['--config',path.join(__dirname,'npm_lazy_config.js')],function(){});
+    exec('npm install --registry http://localhost:5656', {cwd: dir},function(){
+      npm_lazy.kill('SIGKILL');
+      callback();
     });
   },
   parseCreatedFiles : function(output, dir) {
@@ -92,6 +83,7 @@ var utils = module.exports = {
     return child;
   },
   run : function(dir, args, callback) {
+    log.verbose('')
     var argv = [utils.binPath].concat(args);
     var chunks = [];
     var exec = process.argv[0];
