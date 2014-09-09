@@ -1,5 +1,5 @@
 var assert = require('assert');
-var utils = require('../testingUtils');
+var utils = require('../_utils/testingUtils');
 
 var cleanup = utils.cleanup;
 var createEnvironment = utils.createEnvironment;

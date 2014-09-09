@@ -1,6 +1,6 @@
 var assert = require('assert');
 var path = require('path');
-var utils = require('../../testingUtils');
+var utils = require('../../_utils/testingUtils');
 var request = require('supertest');
 var fs = require('fs');
 

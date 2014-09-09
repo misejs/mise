@@ -1,13 +1,23 @@
 var assert = require('assert');
 var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
+var fork = require('child_process').fork;
 var mkdirp = require('mkdirp');
 var path = require('path');
 var rimraf = require('rimraf');
-var spawn = require('child_process').spawn;
+var homePath = path.normalize(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
+var log = require('npmlog');
+var async = require('async');
+
+var clearPort = function(port,callback){
+  exec('lsof -nP -iTCP -sTCP:LISTEN | grep '+port+' | awk \'{ print $2 }\' | xargs kill',function(){
+    callback();
+  });
+}
 
 var utils = module.exports = {
-  binPath : path.resolve(__dirname, '../bin/mise'),
-  tempDir : path.resolve(__dirname, '../temp'),
+  binPath : path.resolve(__dirname, '../../bin/mise'),
+  tempDir : path.resolve(__dirname, '../../temp'),
   cleanup : function(dir, callback) {
     if (typeof dir === 'function') {
       callback = dir;
@@ -20,7 +30,7 @@ var utils = module.exports = {
   },
   createEnvironment : function(callback) {
     // kill existing processes on port 3000 if we can
-    exec('lsof -nP -iTCP -sTCP:LISTEN | grep 3000 | awk \'{ print $2 }\' | xargs kill',function(){
+    clearPort(3000,function(){
       var num = process.pid + Math.random();
       var dir = path.join(utils.tempDir, ('app-' + num));
 
@@ -31,14 +41,14 @@ var utils = module.exports = {
     });
   },
   npmInstall : function(dir, callback) {
-    exec('npm install', {cwd: dir}, function (err, stderr) {
-      if (err) {
-        err.message += stderr;
-        callback(err);
-        return;
-      }
-
-      callback();
+    clearPort(5656,function(){
+      fork('./node_modules/npm_lazy/bin/npm_lazy',['--config',path.join(__dirname,'npm_lazy_config.js')],function(){
+        console.log('done');
+      });
+      async.series([
+        exec.bind(null,'npm install --registry http://localhost:5656', {cwd: dir}),
+        clearPort.bind(null,5656)
+      ],callback)
     });
   },
   parseCreatedFiles : function(output, dir) {

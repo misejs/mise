@@ -31,6 +31,7 @@
     "async": "^0.9.0",
     "commander": "1.3.2",
     "mkdirp": "0.5.0",
+    "npmlog": "^0.1.1",
     "underscore": "^1.7.0"
   },
   "main": "bin/mise",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "mkdirp": "~0.3.5",
     "mocha": "~1.21.4",
+    "npm_lazy": "^1.5.0",
     "npmd": "^1.3.3",
     "rimraf": "~2.2.8",
     "should": "~4.0.4",
