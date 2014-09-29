@@ -12,6 +12,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+// view middleware
 app.set('view engine', '{views}');
 
 // uncomment after placing your favicon in /public
