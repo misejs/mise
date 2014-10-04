@@ -31,7 +31,9 @@
     "async": "^0.9.0",
     "mkdirp": "0.5.0",
     "npmlog": "^0.1.1",
-    "underscore": "^1.7.0"
+    "prompt": "^0.2.14",
+    "underscore": "^1.7.0",
+    "cuisinart": "^0.1.0"
   },
   "main": "bin/mise",
   "preferGlobal": true,
