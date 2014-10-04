@@ -22,7 +22,7 @@ var utils = module.exports = {
       dir = utils.tempDir;
     }
 
-    rimraf(utils.tempDir, function (err) {
+    rimraf(dir, function (err) {
       callback(err);
     });
   },
