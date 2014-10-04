@@ -33,7 +33,7 @@
     "npmlog": "^0.1.1",
     "prompt": "^0.2.14",
     "underscore": "^1.7.0",
-    "cuisinart": "^0.1.0"
+    "cuisinart": "^0.1.1"
   },
   "main": "bin/mise",
   "preferGlobal": true,
@@ -59,6 +59,6 @@
   ],
   "scripts": {
     "test": "./test/_utils/nuke.sh 3000 && mocha --recursive --reporter spec --bail --check-leaks test/",
-    "test-travis": "mocha --recursive --reporter spec --bail --check-leaks test/"
+    "test-travis": "mocha --recursive --reporter spec --check-leaks test/"
   }
 }
