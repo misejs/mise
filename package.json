@@ -29,10 +29,11 @@
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
-    "commander": "1.3.2",
     "mkdirp": "0.5.0",
     "npmlog": "^0.1.1",
-    "underscore": "^1.7.0"
+    "prompt": "^0.2.14",
+    "underscore": "^1.7.0",
+    "cuisinart": "^0.1.2"
   },
   "main": "bin/mise",
   "preferGlobal": true,
@@ -58,6 +59,6 @@
   ],
   "scripts": {
     "test": "./test/_utils/nuke.sh 3000 && mocha --recursive --reporter spec --bail --check-leaks test/",
-    "test-travis": "mocha --recursive --reporter spec --bail --check-leaks test/"
+    "test-travis": "mocha --recursive --reporter spec --check-leaks test/"
   }
 }
