@@ -1,33 +1,21 @@
-[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
+Mise
+----
 
-  [Express'](https://github.com/strongloop/express) application generator.
+[![Build Status](https://travis-ci.org/misejs/mise.svg)](https://travis-ci.org/misejs/mise)
 
-  [![NPM Version](https://img.shields.io/npm/v/express-generator.svg?style=flat)](https://www.npmjs.org/package/express-generator)
-  [![NPM Downloads](https://img.shields.io/npm/dm/express-generator.svg?style=flat)](https://www.npmjs.org/package/express-generator)
-  [![Build Status](https://img.shields.io/travis/expressjs/generator.svg?style=flat)](https://travis-ci.org/expressjs/generator)
-  [![Gittip](https://img.shields.io/gittip/dougwilson.svg?style=flat)](https://www.gittip.com/dougwilson/)
+Mise en Place for node.js apps.
 
-## Quick Start
+Usage
+---
 
-  The quickest way to get started with express is to utilize the executable `express(1)` to generate an application as shown below:
+Mise is currently under development, docs will be provided once the API stabilizes.
 
-  Create the app:
+In the meanwhile, you can:
 
-```bash
-$ npm install -g express-generator
-$ express /tmp/foo && cd /tmp/foo
+```shell
+npm install -g mise
 ```
 
-  Install dependencies:
+and run `mise -h` from your command line for help.
 
-```bash
-$ npm install
-```
-
-  Rock and Roll
-
-```bash
-$ npm start
-```
-
-### [License (MIT)](LICENSE)
+### [License (ISC)](LICENSE)
