@@ -15,6 +15,7 @@ var run = utils.run;
 // Express
 
 describe('express',function(){
+
   describe('(no args)',function(){
     var dir;
     var files;
@@ -29,14 +30,14 @@ describe('express',function(){
 
     after(function (done) {
       this.timeout(30000);
-      cleanup(dir, done);
+      cleanup(done);
     });
 
-    it('should create basic app', function (done) {
+    it('should create a basic app', function (done) {
       run(dir, ['express'], function (err, stdout) {
         if (err) return done(err);
         files = parseCreatedFiles(stdout, dir);
-        assert.equal(files.length, 19);
+        assert.equal(files.length, 16);
         done();
       });
     });

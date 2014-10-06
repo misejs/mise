@@ -10,7 +10,7 @@ var npmInstall = utils.npmInstall;
 var parseCreatedFiles = utils.parseCreatedFiles;
 var run = utils.run;
 
-describe('base',function(){
+describe('client',function(){
   var dir;
   var files;
   var proc;
