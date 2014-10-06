@@ -1,5 +1,5 @@
 // html & eggs view engine setup
-var client = require('./public/javascripts/viewmodels');
+var client = require('../../public/javascripts/viewmodels');
 var ejs = require('ejs');
 var url = require('url');
 var cheerio = require('cheerio');

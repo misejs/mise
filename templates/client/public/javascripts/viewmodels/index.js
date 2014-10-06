@@ -1,6 +1,6 @@
 var eggs = require('eggs');
 var async = require('async');
-var routes = require('./routes');
+var routes = require('../routes');
 
 module.exports = function($,callback){
   // TODO: potential scope leak here, need to make sure that if we're running async we don't overwrite other consumers' eggs $ properties...

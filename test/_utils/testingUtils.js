@@ -5,7 +5,6 @@ var fork = require('child_process').fork;
 var mkdirp = require('mkdirp');
 var path = require('path');
 var rimraf = require('rimraf');
-var homePath = path.normalize(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME']);
 var log = require('npmlog');
 var async = require('async');
 
@@ -36,6 +35,9 @@ var utils = module.exports = {
     });
   },
   npmInstall : function(dir, callback) {
+    // npm lazy relies on this existing, so we'll fake it.
+    var home = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+    if(!home) process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'] = path.join(__dirname,'temp');
     var npm_lazy = fork('./node_modules/npm_lazy/bin/npm_lazy',['--config',path.join(__dirname,'npm_lazy_config.js')],function(){});
     exec('npm install --registry http://localhost:5656', {cwd: dir},function(){
       npm_lazy.kill('SIGKILL');
@@ -77,8 +79,17 @@ var utils = module.exports = {
     child.stdout.on('data', stdout);
     child.stderr.on('data', stderr);
 
+    var done = function(code){
+      if(code !== 0){
+        callback(new Error('non-zero exit code : ' + code));
+      } else {
+        callback();
+      }
+    };
+
     child.on('error', callback);
-    child.on('exit', callback);
+    child.on('exit', done);
+    child.on('close', done);
 
     return child;
   },
@@ -112,8 +123,30 @@ var utils = module.exports = {
       } catch (e) {
         err = e;
       }
-
       callback(err, stdout);
     });
+  },
+  nukePort : function(port, stdout, stderr, callback){
+    if(!callback && !stderr){
+      callback = stdout;
+      stdout = function(){};
+      stderr = function(){};
+    }
+    var cmd = path.join(__dirname,'nuke.sh');
+    var done = function(code){
+      if(code !== 0){
+        callback(new Error('non-zero exit code : ' + code));
+      } else {
+        callback();
+      }
+    };
+    var terminal = require('child_process').spawn('bash');
+    terminal.stdout.on('data', stdout);
+    terminal.on('exit', done);
+
+    setTimeout(function() {
+        terminal.stdin.write(''+cmd+' '+port+'\n');
+        terminal.stdin.end();
+    }, 1000);
   }
 };

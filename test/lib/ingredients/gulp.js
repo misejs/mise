@@ -65,7 +65,10 @@ describe('gulp',function(){
         expressDir = newDir;
         run(expressDir, ['express','gulp'], function (err, stdout) {
           if (err) return done(err);
-          utils.npmInstall(expressDir,done);
+          utils.npmInstall(expressDir,function(){
+            console.log('nuking...');
+            utils.nukePort(3000,done);
+          });
         });
       });
     });
@@ -73,11 +76,23 @@ describe('gulp',function(){
     after(function (done) {
       this.timeout(30000);
       cleanup(done);
-      if(proc) proc.kill(0);
     });
 
     it('should automatically pick up other grunt tasks when added',function(done){
       this.timeout(10000);
+      var completed = false;
+      var complete = function(err){
+        if(proc){
+          proc.kill(0);
+          proc = null;
+        }
+        setTimeout(function(){
+          if(!completed){
+            completed = true;
+            done(err);
+          }
+        },500);
+      }
       var output = '';
       var stderroutput = '';
       fileUtils.copyTemplate('gulp/gulp/task.js', expressDir + '/gulp/task.js');
@@ -85,37 +100,58 @@ describe('gulp',function(){
         output += data.toString();
         if(output.match(/Finished '{taskname}' after/i)){
           // successfully ran the task
-          proc.kill(0);
-          proc = null;
-          done();
+          setTimeout(function(){
+            complete();
+          },500);
         };
       },function(stderr){
         stderroutput += stderr.toString();
       },function(err){
-        assert(!(stderroutput.trim().length),'expected to not receive any stderr messages when running the new task ('+stderroutput+')');
-        if(err) throw err;
-        assert(output.match(/Finished '{taskname}' after/i));
+        if(err){
+          console.error(stderroutput,output);
+        } else {
+          assert(!(stderroutput.trim().length),'expected to not receive any stderr messages when starting the server ('+stderroutput+')');
+          assert(output.match(/Finished '{taskname}' after/i));
+        }
+        complete(err);
       });
     });
 
     it('should start the server when running gulp',function(done){
       this.timeout(10000);
+      var completed = false;
+      var complete = function(err){
+        if(proc){
+          proc.kill(0);
+          proc = null;
+        }
+        setTimeout(function(){
+          if(!completed){
+            completed = true;
+            done(err);
+          }
+        },500);
+      }
       var output = '';
       var stderroutput = '';
       proc = utils.shell(expressDir,'gulp',function(data){
         output += data.toString();
         if(output.match(/Finished 'default' after/i)){
           // successfully ran server
-          proc.kill(0);
-          proc = null;
-          done();
+          setTimeout(function(){
+            complete();
+          },500);
         };
       },function(stderr){
         stderroutput += stderr.toString();
       },function(err){
-        assert(!(stderroutput.trim().length),'expected to not receive any stderr messages when starting the server ('+stderroutput+')');
-        assert(output.match(/Finished 'default' after/i),'unexpected output : ' + output);
-        if(err) throw err;
+        if(err){
+          console.error(stderroutput,output);
+        } else {
+          assert(!(stderroutput.trim().length),'expected to not receive any stderr messages when starting the server ('+stderroutput+')');
+          assert(output.match(/Finished '{taskname}' after/i));
+        }
+        complete(err);
       });
     });
   });

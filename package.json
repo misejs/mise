@@ -29,11 +29,11 @@
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
-    "mkdirp": "0.5.0",
+    "cuisinart": "^0.1.3",
+    "deepmerge": "^0.2.7",
+    "mkdirp": "^0.3.5",
     "npmlog": "^0.1.1",
-    "prompt": "^0.2.14",
-    "underscore": "^1.7.0",
-    "cuisinart": "^0.1.3"
+    "prompt": "^0.2.14"
   },
   "main": "bin/mise",
   "preferGlobal": true,
@@ -41,11 +41,11 @@
     "mise": "./bin/mise"
   },
   "devDependencies": {
-    "mkdirp": "~0.3.5",
     "mocha": "~1.21.4",
     "npm_lazy": "^1.5.0",
     "npmd": "^1.3.3",
     "rimraf": "~2.2.8",
+    "shelljs": "^0.3.0",
     "should": "~4.0.4",
     "supertest": "~0.13.0"
   },
@@ -58,7 +58,7 @@
     "templates/"
   ],
   "scripts": {
-    "test": "./test/_utils/nuke.sh 3000 && mocha --recursive --reporter spec --bail --check-leaks test/",
+    "test": "mocha --recursive --reporter spec --bail --check-leaks test/",
     "test-travis": "mocha --recursive --reporter spec --check-leaks test/"
   }
 }
