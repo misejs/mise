@@ -1,31 +1,14 @@
 {
-  "name": "mise-generator",
-  "description": "Mise.js application generator",
-  "version": "0.1.0",
+  "name": "mise",
+  "description": "Mise En Place for Node.js apps - a flexible generator for rapid prototyping.",
+  "version": "0.0.1",
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
-  "contributors": [
-    "TJ Holowaychuk <tj@vision-media.ca>",
-    "Aaron Heckmann <aaron.heckmann+github@gmail.com>",
-    "Ciaran Jessup <ciaranj@gmail.com>",
-    "Guillermo Rauch <rauchg@gmail.com>",
-    "Jonathan Ong <me@jongleberry.com>",
-    "Roman Shtylman <shtylman+expressjs@gmail.com>"
-  ],
   "keywords": [
     "mise",
-    "vue",
     "gulp",
-    "express",
-    "framework",
-    "sinatra",
-    "web",
-    "rest",
-    "restful",
-    "router",
-    "app",
-    "api"
+    "express"
   ],
-  "repository": "misejs/generator",
+  "repository": "misejs/mise",
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
