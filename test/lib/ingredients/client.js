@@ -88,7 +88,7 @@ describe('client',function(){
     });
 
     it('should have installable dependencies', function (done) {
-      this.timeout(20000);
+      this.timeout(60000);
       npmInstall(dir, done);
     });
 
@@ -104,7 +104,7 @@ describe('client',function(){
       });
 
       it('should rebuild and start the server when running `npm start`',function(done){
-        this.timeout(10000);
+        this.timeout(30000);
         var completed = false;
         var complete = function(err){
           if(proc){
