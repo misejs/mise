@@ -34,7 +34,7 @@ describe('express',function(){
     });
 
     it('should create a basic app', function (done) {
-      run(dir, ['express'], function (err, stdout) {
+      run(dir, ['./ingredients/express','express'], function (err, stdout) {
         if (err) return done(err);
         files = parseCreatedFiles(stdout, dir);
         assert.equal(files.length, 17);
