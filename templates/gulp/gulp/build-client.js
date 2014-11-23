@@ -5,7 +5,7 @@ var inject = require("gulp-inject");
 var concat = require('gulp-concat');
 
 // Inject scripts - injects scripts in to index.html
-gulp.task('injectScripts', function () {
+gulp.task('injectScripts', ['browserify'], function () {
   var target = gulp.src('./views/layout.html');
   // It's not necessary to read the files (will speed up things), we're only after their paths:
   var sources = gulp.src(['./public/build/js/main.js', './public/build/**/*.css'], {read: false});
@@ -16,15 +16,16 @@ gulp.task('injectScripts', function () {
 
 // Browserify - concatenates the browserify files and dumps them in app.js
 gulp.task('browserify', function() {
-  gulp.src(['./public/javascripts/main.js'])
-  .pipe(browserify({
-    insertGlobals: true,
-    debug: true
-  }))
-  // Bundle to a single file
-  .pipe(concat('main.js'))
-  // Output it to our dist folder
-  .pipe(gulp.dest('./public/build/js'));
+  var target = gulp.src(['./public/javascripts/main.js'])
+    .pipe(browserify({
+      insertGlobals: true,
+      debug: true
+    }))
+    // Bundle to a single file
+    .pipe(concat('main.js'))
+    // Output it to our dist folder
+    .pipe(gulp.dest('./public/build/js'));
+  return target;
 });
 
 gulp.task('build-client',['browserify','injectScripts']);

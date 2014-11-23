@@ -3,18 +3,14 @@ var async = require('async');
 var routes = require('../routes');
 
 module.exports = function($,callback){
-  // TODO: potential scope leak here, need to make sure that if we're running async we don't overwrite other consumers' eggs $ properties...
-  eggs.$ = $;
   async.forEach(routes,function(route,done){
-    var viewModel = new route.viewModel(function(){
-      eggs.bind(viewModel,{
-        selector : route.selector
-      });
+    var viewModel = new route.ViewModel(function(){
+      eggs($,{selector : route.selector}).bind(viewModel);
       done();
     });
   },function(err){
     if(callback){
-      var html = eggs.$.html();
+      var html = $.html();
       callback(err,html);
     }
   });
