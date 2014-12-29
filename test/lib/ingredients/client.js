@@ -32,7 +32,7 @@ describe('client',function(){
     var files;
 
     before(function(done){
-      run(dir,['express','gulp','client'],function(err,stdout){
+      run(dir,['./ingredients/express','./ingredients/gulp','./ingredients/client','express','gulp','client'],function(err,stdout){
         if(err) return done(err);
         // wait for a second to make sure everything resolved
         setTimeout(function(){

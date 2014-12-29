@@ -1,12 +1,9 @@
 
 
-function HomeViewModel(ready){
+function HomeViewModel(){
   var self = this;
-  self.title = "Loading...";
-  setTimeout(function(){
-    self.title = 'Mise';
-    ready();
-  },100);
+  self.title = "Mise";
+  return self;
 };
 
 module.exports = HomeViewModel;

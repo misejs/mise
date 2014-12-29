@@ -29,7 +29,7 @@ describe('gulp',function(){
   });
 
   it('should create the right number of files',function(done){
-    run(dir, ['gulp'], function (err, stdout) {
+    run(dir, ['./ingredients/gulp','gulp'], function (err, stdout) {
       if (err) return done(err);
       files = parseCreatedFiles(stdout, dir);
       assert.equal(files.length,3);
@@ -63,7 +63,7 @@ describe('gulp',function(){
       createEnvironment(function (err, newDir) {
         if (err) return done(err);
         expressDir = newDir;
-        run(expressDir, ['express','gulp'], function (err, stdout) {
+        run(expressDir, ['./ingredients/express','./ingredients/gulp','express','gulp'], function (err, stdout) {
           if (err) return done(err);
           utils.npmInstall(expressDir,function(){
             console.log('nuking...');
