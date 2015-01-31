@@ -1,0 +1,7 @@
+{
+  "paths" : {
+    "models" : "lib/models",
+    "viewmodels" : "public/javascripts/viewmodels",
+    "views" : "views"
+  }
+}
