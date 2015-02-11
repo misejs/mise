@@ -16,6 +16,8 @@
     "deepmerge": "^0.2.7",
     "mkdirp": "^0.3.5",
     "npmlog": "^0.1.1",
+    "pluralize": "^1.1.2",
+    "prettydiff": "^1.8.6",
     "prompt": "^0.2.14"
   },
   "main": "bin/mise",
