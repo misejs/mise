@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-var client = require('./public/javascripts/viewModels');
+var client = require('./public/javascripts/viewmodels');
 var eggs = require('eggs');
 
 var routes = require('./routes/index');

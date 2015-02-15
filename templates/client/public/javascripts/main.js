@@ -1,4 +1,4 @@
-var runViewModels = require('./viewmodels');
+var runViewmodels = require('./viewmodels');
 var jquery = require('jquery-browserify');
 
-runViewModels(jquery);
+runViewmodels(jquery);

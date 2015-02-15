@@ -2,6 +2,7 @@
   "paths" : {
     "models" : "lib/models",
     "viewmodels" : "public/javascripts/viewmodels",
+    "routes" : "public/javascripts/routes.js",
     "views" : "views"
   }
 }
