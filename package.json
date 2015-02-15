@@ -14,6 +14,7 @@
     "async": "^0.9.0",
     "cuisinart": "^0.1.3",
     "deepmerge": "^0.2.7",
+    "findit": "^2.0.0",
     "mkdirp": "^0.3.5",
     "npmlog": "^0.1.1",
     "pluralize": "^1.1.2",
