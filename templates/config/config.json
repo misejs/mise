@@ -1,8 +1,14 @@
 {
   "paths" : {
+    "app" : "app.js",
     "models" : "lib/models",
     "viewmodels" : "public/javascripts/viewmodels",
-    "routes" : "public/javascripts/routes.js",
-    "views" : "views"
+    "clientRoutes" : "public/javascripts/routes.js",
+    "views" : "views",
+    "routesFile" : "routes/index.js"
+  },
+  "api" : {
+    "routes" : "routes/api",
+    "baseURL" : "/api"
   }
 }
