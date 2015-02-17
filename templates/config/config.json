@@ -18,5 +18,12 @@
   "oauth" : {
     "views" : "views/oauth",
     "lib" : "lib/oauth"
+  },
+  "admin" : {
+    "views" : "views/admin",
+    "viewmodels" : "public/javascripts/viewmodels/admin",
+    "clientRoutes" : "public/javascripts/routes.js",
+    "routes" : "routes/admin",
+    "baseURL" : "/admin"
   }
 }

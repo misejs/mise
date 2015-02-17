@@ -1,0 +1,10 @@
+<div id="admin-index-<%= collection %>">
+  <ul e-repeat="items">
+    <li>
+      <a e-attr="href:link" e-text="item.title"></a>
+      <a e-on="click:remove">delete</a>
+    </li>
+  </ul>
+
+  <a e-attr="href:createLink">New</a>
+</div>
