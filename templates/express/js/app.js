@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
 
 var client = require('./public/javascripts/viewmodels');
 var eggs = require('eggs');
@@ -23,7 +23,13 @@ eggs.configureViewEngine(app,client);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());{css}
+app.use(cookieParser());
+app.use(session({
+  secret : '{{sessionSecret}}',
+  name : '{{appName}}',
+  resave : false,
+  saveUninitialized : false
+}));{css}
 app.use('/public',express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

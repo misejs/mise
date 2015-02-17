@@ -10,5 +10,13 @@
   "api" : {
     "routes" : "routes/api",
     "baseURL" : "/api"
+  },
+  "auth" : {
+    "views" : "views/auth",
+    "lib" : "lib/auth"
+  },
+  "oauth" : {
+    "views" : "views/oauth",
+    "lib" : "lib/oauth"
   }
 }
