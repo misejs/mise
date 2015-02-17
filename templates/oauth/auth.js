@@ -52,7 +52,7 @@ passport.use(new BearerStrategy(
     AccessToken.one({token : accessToken}, function(err, token) {
       if (err) return done(err);
       if (!token) return done(null, false);
-      User.one(token.userID, function(err, user){
+      User.one(token.userId, function(err, user){
         // TODO: implement scopes for admin vs normal user access?
         var info = { scope: '*' }
         done(null, user, info);

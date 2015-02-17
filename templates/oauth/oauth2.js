@@ -1,9 +1,19 @@
 var oauth2orize = require('oauth2orize');
 var passport = require('passport');
 var OAuthClient = require('{{oauthClientModelPath}}');
-var OAuthCode = require('{{authorizationCodeModelPath}}');
+var OAuthCode = require('{{authCodeModelPath}}');
 var User = require('{{userModelPath}}');
 var AccessToken = require('{{accessTokenModelPath}}');
+
+// function to verify if our user is logged in.
+var ensureLoggedIn = function() {
+  return function(req, res, next) {
+    if (!req.user) {
+      return res.redirect('/login');
+    }
+    next();
+  }
+}
 
 // UID Generation
 var getRandomInt = function(min, max) {
@@ -105,15 +115,6 @@ server.exchange(oauth2orize.exchange.code(function(client, code, redirectURI, do
   });
 }));
 
-var ensureLoggedIn = function() {
-  return function(req, res, next) {
-    if (!req.session.user) {
-      return res.redirect('{{loginPath}}');
-    }
-    next();
-  }
-}
-
 // user authorization endpoint
 //
 // `authorization` middleware accepts a `validate` callback which is
@@ -135,7 +136,8 @@ exports.authorization = [
   server.authorization(function(clientId, redirectURI, done) {
     OAuthClient.one({clientId : clientId}, function(err, client){
       if(err) return done(err);
-      // This is where you would validate the redirectURI. Some servers do, some don't - if you plan on making this API public, it is recommended that you add redirectURI validation.
+      // This is where you would validate the redirectURI. Some servers do, some don't.
+      // if you plan on making this API public, it is recommended that you add redirectURI validation.
       return done(null,client,redirectURI);
     });
   }),
@@ -152,7 +154,7 @@ exports.authorization = [
 // a response.
 
 exports.decision = [
-  login.ensureLoggedIn(),
+  ensureLoggedIn(),
   server.decision()
 ]
 
