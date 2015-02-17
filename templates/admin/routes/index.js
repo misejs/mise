@@ -5,7 +5,7 @@ router.get('/',function(req,res,next){
   res.render('{{homeView}}');
 });
 router.get('/:collection', function(req,res){
-  res.render('{{allView}}',{ collection : req.params.collection, layout : '{{layoutView}}' });
+  res.render('{{listView}}',{ collection : req.params.collection, layout : '{{layoutView}}' });
 });
 router.get('/:collection/create', function(req,res){
   res.render('{{createView}}',{ collection : req.params.collection, layout : '{{layoutView}}' });
