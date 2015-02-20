@@ -1,4 +1,4 @@
-var Model = require({{modelPath}});
+var Model = require('{{modelPath}}');
 var helpers = require('./helpers');
 
 function Admin{{modelName}}ListViewModel(ready) {
@@ -12,10 +12,9 @@ function Admin{{modelName}}ListViewModel(ready) {
         item : item,
         remove : function(){
           if(confirm('Are you sure you want to delete this item? This cannot be undone.')){
-            item.destroy(function(){
+            item.destroy(function(err){
+              if(err) return console.error('error removing item: ',err);
               reload();
-            },function(err){
-              console.error('error removing item: ',err);
             });
           }
         },
@@ -26,11 +25,11 @@ function Admin{{modelName}}ListViewModel(ready) {
   };
 
   var reload = function(cb){
-    Model.index(function(items){
+    Model.all(function(err,items){
+      cb();
+      if(err) return console.error('error listing items: ',err);
       self.items = decorateItems(items);
-    },function(err){
-      console.error('error listing items: ',err);
-    },cb);
+    });
   }
 
   reload(ready);

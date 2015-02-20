@@ -1,4 +1,4 @@
-var Model = require({{modelPath}});
+var Model = require('{{modelPath}}');
 var helpers = require('./helpers');
 
 function AdminUpdate{{modelName}}ViewModel(ready) {
@@ -7,20 +7,19 @@ function AdminUpdate{{modelName}}ViewModel(ready) {
   self.fields = helpers.parseSchema(self.model.schema);
 
   // TODO: how do we get the ID now?
-  Model.show(helpers.currentID(),function(info){
+  Model.one(helpers.currentID(),function(err,info){
+    ready();
+    if(err) return console.error(err);
     self.model = info;
     self.fields.forEach(function(field){
       field.value = self.model[field.name];
     });
-  },function(err){
-    console.error(err);
-  },ready);
+  });
   self.save = function(){
     self.model = helpers.modelFromFields(Model,self.fields);
-    self.model.save(function(saved){
+    self.model.save(function(err,saved){
+      if(err) return console.error(arguments);
       self.model = saved;
-    },function(){
-      console.error(arguments);
     });
   };
 };

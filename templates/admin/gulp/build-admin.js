@@ -36,7 +36,7 @@ gulp.task('inject-admin-scripts', ['build-admin-javascripts'], function () {
   var sources = gulp.src(['./public/build/admin/js/'+getBundleName()+'.js', './public/build/admin/css/**/*.css'], {read: false});
 
   return target.pipe(inject(sources))
-  .pipe(gulp.dest('./views'));
+  .pipe(gulp.dest('./views/admin'));
 });
 
 gulp.task('build-admin',['build-admin-javascripts','inject-admin-scripts']);

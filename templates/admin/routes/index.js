@@ -3,7 +3,7 @@ var router = express.Router();
 
 var async = require('async');
 var cheerio = require('cheerio');
-var client = require('../../public/admin/javascripts/viewmodels');
+var client = require('{{viewmodelsPath}}');
 
 var renderAdmin = function(view,options,req,res,next){
   res.render(view,options,function(err,html){
@@ -19,13 +19,13 @@ var renderAdmin = function(view,options,req,res,next){
 router.get('/',function(req,res,next){
   renderAdmin('{{homeView}}',{ layout : '{{layoutView}}' },req,res,next);
 });
-router.get('/:collection', function(req,res){
+router.get('/:collection', function(req,res,next){
   renderAdmin('{{listView}}',{ collection : req.params.collection, layout : '{{layoutView}}' },req,res,next);
 });
-router.get('/:collection/create', function(req,res){
+router.get('/:collection/create', function(req,res,next){
   renderAdmin('{{createView}}',{ collection : req.params.collection, layout : '{{layoutView}}' },req,res,next);
 });
-router.get('/:collection/:id', function(req,res){
+router.get('/:collection/:id', function(req,res,next){
   renderAdmin('{{updateView}}',{ collection : req.params.collection, id : req.params.id, layout : '{{layoutView}}' },req,res,next);
 });
 
