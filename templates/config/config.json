@@ -5,7 +5,8 @@
     "viewmodels" : "public/javascripts/viewmodels",
     "clientRoutes" : "public/javascripts/routes.js",
     "views" : "views",
-    "routesFile" : "routes/index.js"
+    "routesFile" : "routes/index.js",
+    "gulp" : "gulp"
   },
   "api" : {
     "routes" : "routes/api",
@@ -21,8 +22,8 @@
   },
   "admin" : {
     "views" : "views/admin",
-    "viewmodels" : "public/javascripts/viewmodels/admin",
-    "clientRoutes" : "public/javascripts/routes.js",
+    "viewmodels" : "public/admin/javascripts/viewmodels",
+    "clientRoutes" : "public/admin/javascripts/routes.js",
     "routes" : "routes/admin",
     "baseURL" : "/admin"
   }

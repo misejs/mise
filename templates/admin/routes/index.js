@@ -1,17 +1,32 @@
 var express = require('express');
 var router = express.Router();
 
+var async = require('async');
+var cheerio = require('cheerio');
+var client = require('../../public/admin/javascripts/viewmodels');
+
+var renderAdmin = function(view,options,req,res,next){
+  res.render(view,options,function(err,html){
+    if(err) return next(err);
+    var $ = cheerio.load(html);
+    client.call(options,$,function(err){
+      if(err) return next(err);
+      res.send($.html());
+    });
+  });
+};
+
 router.get('/',function(req,res,next){
-  res.render('{{homeView}}');
+  renderAdmin('{{homeView}}',{ layout : '{{layoutView}}' },req,res,next);
 });
 router.get('/:collection', function(req,res){
-  res.render('{{listView}}',{ collection : req.params.collection, layout : '{{layoutView}}' });
+  renderAdmin('{{listView}}',{ collection : req.params.collection, layout : '{{layoutView}}' },req,res,next);
 });
 router.get('/:collection/create', function(req,res){
-  res.render('{{createView}}',{ collection : req.params.collection, layout : '{{layoutView}}' });
+  renderAdmin('{{createView}}',{ collection : req.params.collection, layout : '{{layoutView}}' },req,res,next);
 });
 router.get('/:collection/:id', function(req,res){
-  res.render('{{updateView}}',{ collection : req.params.collection, id : req.params.id, layout : '{{layoutView}}' });
+  renderAdmin('{{updateView}}',{ collection : req.params.collection, id : req.params.id, layout : '{{layoutView}}' },req,res,next);
 });
 
 module.exports = router;
