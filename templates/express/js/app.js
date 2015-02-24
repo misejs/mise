@@ -6,9 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-var client = require('./public/javascripts/viewmodels');
-var eggs = require('eggs');
-
 var routes = require('./routes/index');
 
 var app = express();
@@ -16,7 +13,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // set up eggs view engine
-eggs.configureViewEngine(app,client);
+var eggs = require('eggs');
+app.engine('html',eggs.viewEngine(require('./public/javascripts/routes')));
+app.set('view engine','html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -30,7 +29,7 @@ app.use(session({
   resave : false,
   saveUninitialized : false
 }));{css}
-app.use('/public',express.static(path.join(__dirname, 'public')));
+app.use('/dist',express.static(path.join(__dirname, 'dist')));
 
 app.use('/', routes);
 
