@@ -3,8 +3,9 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
+var watch = require('gulp-watch');
 var buffer = require('vinyl-buffer');
-var inject = require("gulp-inject");
+var inject = require('gulp-inject');
 
 var getBundleName = function () {
   var version = require('../package.json').version;
@@ -40,3 +41,15 @@ gulp.task('inject-scripts', ['build-javascripts'], function () {
 });
 
 gulp.task('build-client',['build-javascripts','inject-scripts']);
+
+gulp.task('watch',['build-client'],function(){
+  return watch([
+    'public/javascripts/**/*.js',
+    'public/**/*.scss',
+    'views/**/*.html'
+  ],function(){
+    gulp.start('build-client');
+  });
+});
+
+gulp.task('start',['watch']);
