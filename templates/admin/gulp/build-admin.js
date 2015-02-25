@@ -26,14 +26,14 @@ gulp.task('build-admin-javascripts',function(){
   .pipe(buffer())
   .pipe(sourcemaps.init({loadMaps: true}))
   .pipe(sourcemaps.write('./'))
-  .pipe(gulp.dest('./public/build/admin/js'));
+  .pipe(gulp.dest('./dist/admin/js'));
 });
 
 // Inject scripts - injects scripts in to index.html
 gulp.task('inject-admin-scripts', ['build-admin-javascripts'], function () {
   var target = gulp.src('./views/admin/layout.html');
   // It's not necessary to read the files (will speed up things), we're only after their paths:
-  var sources = gulp.src(['./public/build/admin/js/'+getBundleName()+'.js', './public/build/admin/css/**/*.css'], {read: false});
+  var sources = gulp.src(['./dist/admin/js/'+getBundleName()+'.js', './dist/admin/css/**/*.css'], {read: false});
 
   return target.pipe(inject(sources))
   .pipe(gulp.dest('./views/admin'));

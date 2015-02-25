@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title>Admin</title>
@@ -6,8 +5,8 @@
     <!-- endinject -->
   </head>
   <body>
-    <%- include partials/nav.html %>
-    <%- body %>
+    <e-partial path="partials/nav.html"/>
+    <e-yield/>
     <!-- inject:js -->
     <!-- endinject -->
   </body>

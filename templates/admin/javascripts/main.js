@@ -1,4 +1,9 @@
-var runViewmodels = require('./viewmodels');
-var jquery = require('jquery-browserify');
+var eggs = require('eggs');
+var async = require('async');
+var routes = require('./routes');
 
-runViewmodels(jquery);
+async.forEach(routes,function(route,done){
+  eggs(route.selector,route.viewmodel,done);
+},function(err){
+  // completed setting up admin eggs.
+});

@@ -21,6 +21,7 @@
     "lib" : "lib/oauth"
   },
   "admin" : {
+    "app" : "admin.js",
     "views" : "views/admin",
     "viewmodels" : "public/admin/javascripts/viewmodels",
     "clientRoutes" : "public/admin/javascripts/routes.js",
