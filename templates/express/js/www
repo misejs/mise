@@ -1,14 +1,19 @@
 #!/usr/bin/env node
-var debug = require('debug')('{name}');
+var debug = require('debug')('reload');
 var app = require('../app');
 
 app.set('port', process.env.PORT || 3000);
 
-var startServer = module.exports = function(){
-  var server = app.listen(app.get('port'), function() {
-    debug('{name} server listening on port ' + server.address().port);
+var server;
+var startServer = module.exports.start = function(){
+  server = app.listen(app.get('port'), function() {
+    debug('reload server listening on port ' + server.address().port);
   });
 }
+
+var stopServer = module.exports.stop = function(){
+  server.close();
+};
 
 if(require.main === module){
   startServer();
