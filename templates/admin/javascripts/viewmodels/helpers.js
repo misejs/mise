@@ -40,4 +40,11 @@ helpers.parseSchema = function(schema){
   return fields;
 };
 
+helpers.currentId = function(url){
+  url = url || (typeof window !== 'undefined' && window.location.href);
+  var parts = url.split('/');
+  var id = parts[parts.length-1];
+  return id;
+};
+
 module.exports = helpers;

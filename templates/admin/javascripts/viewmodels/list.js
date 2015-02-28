@@ -26,7 +26,7 @@ function Admin{{modelName}}ListViewModel(ready) {
 
   var reload = function(cb){
     Model.all(function(err,items){
-      cb();
+      if(cb) cb();
       if(err) return console.error('error listing items: ',err);
       self.items = decorateItems(items);
     });

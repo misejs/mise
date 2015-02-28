@@ -6,8 +6,7 @@ function AdminUpdate{{modelName}}ViewModel(ready) {
   self.model = new Model();
   self.fields = helpers.parseSchema(self.model.schema);
 
-  // TODO: how do we get the ID now?
-  Model.one(helpers.currentID(),function(err,info){
+  Model.one(helpers.currentId(self.currentUrl),function(err,info){
     ready();
     if(err) return console.error(err);
     self.model = info;

@@ -44,12 +44,11 @@ gulp.task('build-client',['build-javascripts','inject-scripts']);
 
 gulp.task('watch',['build-client'],function(){
   return watch([
-    '../public/**/*.js',
-    '../lib/**/*.js',
-    '../routes/**/*.js',
-    '../gulp/**/*.js',
-    '../public/stylesheets/**/*.css',
-    '../views/**/*.html'
+    './public/**/*.js',
+    './lib/**/*.js',
+    './routes/**/*.js',
+    './gulp/**/*.js',
+    './public/stylesheets/**/*.css'
   ],function(){
     gulp.start('build-client');
   });
