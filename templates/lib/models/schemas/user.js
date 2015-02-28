@@ -1,6 +1,7 @@
 {
   '{{idKey}}' : {
-    type : 'Any'
+    type : 'Any',
+    disabled : true
   },
   identifier : {
     type : String

@@ -26,8 +26,8 @@ var resourceName = {{modelName}}.prototype.collection;
 };
 
 var upsert = function(data,callback){
-  var new{{modelName}} = new {{modelName}}(req.body);
-  {{modelName}}.save(callback);
+  var new{{modelName}} = new {{modelName}}(data);
+  new{{modelName}}.save(callback);
 };
 
 {{name}}.create = function(req,res,next){

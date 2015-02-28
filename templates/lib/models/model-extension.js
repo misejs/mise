@@ -1,10 +1,8 @@
 var {{name}} = require('../{{name}}');
 var extend = require('{{packageName}}');
 
-{{usageWarning}}
-
-var ExtendedModel = extend({{name}},{
-  /* add your config here */
-});
+var ExtendedModel = extend({{name}},{{config}});
 
 module.exports = ExtendedModel;
+
+{{usageWarning}}

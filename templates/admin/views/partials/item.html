@@ -1,0 +1,9 @@
+<ul e-repeat="fields">
+  <li>
+    <label e-attr="for:name" e-text="name"></label>
+    <input e-if="textInput" e-model="value" e-attr="type:type,name:name,disabled:disabled,value:value"/>
+    <input e-if="checkbox" e-model="value" e-attr="type:type,name:name,disabled:disabled,checked:value"/>
+    <textarea e-if="textArea" e-model="value" e-attr="type:type,name:name,disabled:disabled" e-text="value"/></textarea>
+  </li>
+</ul>
+<a e-on="click:save">Save</a>
