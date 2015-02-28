@@ -7,12 +7,12 @@ function AdminUpdate{{modelName}}ViewModel(ready) {
   self.fields = helpers.parseSchema(self.model.schema);
 
   Model.one(helpers.currentId(self.currentUrl),function(err,info){
-    ready();
     if(err) return console.error(err);
     self.model = info;
     self.fields.forEach(function(field){
       field.value = self.model[field.name];
     });
+    ready();
   });
   self.save = function(){
     self.model = helpers.modelFromFields(Model,self.fields);

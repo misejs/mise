@@ -17,7 +17,7 @@ router.get('/:collection/create', function(req,res,next){
   res.render('{{createView}}-' + req.params.collection, { currentUrl : currentUrl(req) });
 });
 router.get('/:collection/:id', function(req,res,next){
-  res.render('{{updateView}}-' + req.params.collection, { currentUrl : currentUrl(req), collection : req.params.collection, id : req.params.id });
+  res.render('{{updateView}}-' + req.paramas.collection, { currentUrl : currentUrl(req), collection : req.params.collection });
 });
 
 module.exports = router;
