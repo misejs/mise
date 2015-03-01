@@ -20,7 +20,8 @@
     "npmlog": "^0.1.1",
     "pluralize": "^1.1.2",
     "prettydiff": "^1.8.6",
-    "prompt": "^0.2.14"
+    "prompt": "^0.2.14",
+    "version": "^0.1.2"
   },
   "main": "bin/mise",
   "preferGlobal": true,
