@@ -19,6 +19,8 @@ var resourceName = {{modelName}}.prototype.collection;
   {{modelName}}.one(req.params.id,function(err,item){
     if (err) {
       res.status(500).json({error : err.message});
+    } else if(!item){
+      res.status(404).json({error : 'Item not found'});
     } else {
       res.json(item.toObject());
     }

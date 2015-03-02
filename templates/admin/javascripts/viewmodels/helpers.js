@@ -3,7 +3,13 @@ var helpers = {};
 helpers.modelFromFields = function(Model,fields){
   var model = new Model();
   fields.forEach(function(field){
-    model[field.name] = field.value;
+    fields.forEach(function(field){
+      var value = field.value;
+      try {
+        value = JSON.parse(value);
+      } catch(e){}
+      model[field.name] = value;
+    });
   });
   return model;
 };

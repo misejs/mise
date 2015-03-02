@@ -10,6 +10,7 @@ function Admin{{modelName}}ListViewModel(ready) {
     items = items.map(function(item){
       return {
         item : item,
+        title : item.title || item[Model.idKey],
         remove : function(){
           if(confirm('Are you sure you want to delete this item? This cannot be undone.')){
             item.destroy(function(err){
@@ -26,9 +27,9 @@ function Admin{{modelName}}ListViewModel(ready) {
 
   var reload = function(cb){
     Model.all(function(err,items){
-      if(cb) cb();
       if(err) return console.error('error listing items: ',err);
       self.items = decorateItems(items);
+      if(cb) cb();
     });
   }
 

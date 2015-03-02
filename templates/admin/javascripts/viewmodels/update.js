@@ -10,7 +10,13 @@ function AdminUpdate{{modelName}}ViewModel(ready) {
     if(err) return console.error(err);
     self.model = info;
     self.fields.forEach(function(field){
-      field.value = self.model[field.name];
+      var value = self.model[field.name];
+      if(typeof value == 'object'){
+        value = JSON.stringify(self.model[field.name],null,4);
+        field.textArea = true;
+        field.textInput = false;
+      }
+      field.value = value;
     });
     ready();
   });
