@@ -10,7 +10,7 @@ var User = require('{{userModelPath}}');
  * Anytime a request is made to authorize an application, we must ensure that
  * a user is logged in before asking them to approve the request.
  */
-passport.use(new LocalStrategy({//this is a strategy but why is it not being run?
+passport.use(new LocalStrategy({
   usernameField: 'identifier',
   passwordField: 'password'
 }, function(username, password, done) {

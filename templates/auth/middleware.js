@@ -14,7 +14,7 @@ router.post('/signup', function(req,res,next){
   // this is where you would add any user validation you want when a user signs up.
   // it's likely that you'll want at *least* password and unique identifier (username, email, etc) validation.
   // after you add that, remove this line:
-  res.status(500).send('Please verify your user validation before allowing user signups.');
+  return res.status(500).send('Please verify your user validation before allowing user signups.');
   var info = req.body;
   bcrypt.hash(info.password, 10, function(err, hash) {
     info.password = hash;
